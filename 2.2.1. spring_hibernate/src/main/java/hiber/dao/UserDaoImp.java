@@ -1,6 +1,5 @@
 package hiber.dao;
 
-import hiber.model.Car;
 import hiber.model.User;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
@@ -33,6 +32,6 @@ public class UserDaoImp implements UserDao {
         String hql = "from User user where user.car.model = :model and user.car.series = :series";
         TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery(hql);
         query.setParameter("model", model).setParameter("series", series);
-        return (List<User>) query.getSingleResult();
+        return (List<User>) query.setMaxResults(1).getResultList();
     }
 }
